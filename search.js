@@ -54,7 +54,7 @@ function fileSearch(startPath, filter, word) {
         //Check if it is directory
         if (stat.isDirectory()){
             //What happens if found something that is not directory
-            fileSearch(fileName, filter, word);
+            found = found || fileSearch(fileName, filter, word);
         } else {
             //Reading from the File
             fs.readFile(fileName, 'utf8', function (err, data) {
@@ -73,4 +73,6 @@ function fileSearch(startPath, filter, word) {
 
 if (!fileSearch(dir, extention, word)) {
 
+} else {
+    getHelp();
 }

@@ -51,7 +51,7 @@
       <path value="$PROJECT_DIR$/server/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="31" />
     <option name="y" value="57" />
     <option name="width" value="1148" />
@@ -113,7 +113,7 @@
       <updated>1540236583980</updated>
       <workItem from="1540236585903" duration="995000" />
       <workItem from="1540237694389" duration="208000" />
-      <workItem from="1540269324469" duration="263000" />
+      <workItem from="1540269324469" duration="673000" />
     </task>
     <task id="LOCAL-00001" summary="Port Change">
       <created>1540237748484</created>
@@ -140,7 +140,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1466000" />
+    <option name="totallyTimeSpent" value="1876000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />

@@ -3,7 +3,6 @@ const path = require('path');
 var dir = "C:\\MyFolder";
 var extention = process.argv[2];
 var word = process.argv[3];
-var found = false;
 
 //File name
 var fullFileName = path.basename(process.argv[1]);
@@ -18,32 +17,43 @@ function getHelp(){
     console.log("Usage: " + serviceName + " " + mFileName + " [EXT] [TEXT]");
 }
 
-function fileSearch(startPath, filter , word) {
+function fileSearch(firstDir, filter, word) {
     //Check if Folder exists
-    if(!fs.existsSync(startPath)) {
+    if (!fs.existsSync(firstDir)) {
         console.log("Creating Dir");
-        fs.mkdirSync(startPath);
+        fs.mkdirSync(firstDir);
         console.log("Folder Created");
     }
-    var files = fs.readdirSync(startPath);
+    //Getting Dir Name
+    var files = fs.readdirSync(firstDir);
+    //For looping:
+    //1.joins the specified path segments into one path
+    //2.Checking the status of the file (Exist or Not)
+    //3.Checking if I reached Directory
+    //4.If not reaching directory , check for file
+    //5.If file was found read from it
+    //6.If the file got the word I defined print where the file can be found
     for (var i = 0; i < files.length ; i++) {
-        var fileName = path.join(startPath,files[i]);
+        //join paths
+        var fileName = path.join(firstDir, files[i]);
+        //Checking the status of the file (Exist or Not)
         var stat = fs.lstatSync(fileName);
+        //Check if directory
         if (stat.isDirectory()){
-            found = found || fileSearch(fileName,filter,word);
+            fileSearch(fileName, filter, word);
+            //What happens if found something that is not directory
         } else {
+            //Reading from the File
                 fs.readFile(fileName, 'utf8', function (err, data) {
                     if (err) throw err;
+                    //Printing the files that contains the defined word
                     if(data.localeCompare(word) >= 0){
                         console.log(fileName);
-                        found = true;
                     }
                 });
             }
     }
-    return found;
 
 }
-if(!fileSearch(dir , extention , word)){
-    
-}
+
+fileSearch(dir, extention, word);

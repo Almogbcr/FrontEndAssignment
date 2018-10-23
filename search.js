@@ -32,5 +32,5 @@ function fileSearch(startPath,filter,word) {
 }
 
 
-//fileSearch(dir,'.txt',word);
+fileSearch(dir, '.txt', word);
 

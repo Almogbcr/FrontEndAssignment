@@ -7,14 +7,15 @@ var dir = "C:\\MyFolder";
 var extention = process.argv[2];
 var word = process.argv[3];
 
+//Service Name
+var fullServiceName = path.basename(process.argv[0]);
+var serviceExt = path.extname(fullServiceName);
+var serviceName = path.basename(fullServiceName, serviceExt);
 //File name
 var fullFileName = path.basename(process.argv[1]);
 var mExtention = path.extname(fullFileName);
 var mFileName = path.basename(fullFileName,mExtention);
-//Service Name
-var fullServiceName = path.basename(process.argv[0]);
-var serviceExt = path.extname(fullServiceName);
-var serviceName = path.basename(fullServiceName,serviceExt);
+
 
 function getHelp(){
     console.log("Usage: " + serviceName + " " + mFileName + " [EXT] [TEXT]");

@@ -1,11 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 var dir = "C:\\MyFolder";
-var word = "Ori";
 
 //console.log("Usage : Node search [EXT] [TEXT]");
 
-function fileSearch(startPath,filter,word) {
+function fileSearch(startPath, filter) {
     //Check if Folder exists
     if(!fs.existsSync(startPath)) {
         console.log("Folder not found " + startPath);
@@ -32,5 +31,5 @@ function fileSearch(startPath,filter,word) {
 }
 
 
-fileSearch(dir, '.txt', word);
+fileSearch(dir, '.txt');
 

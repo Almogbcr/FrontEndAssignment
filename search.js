@@ -7,10 +7,6 @@ var dir = "C:\\MyFolder";
 var extention = process.argv[2];
 var word = process.argv[3];
 
-
-//Global variables
-var found = false;
-
 //Service Name
 var fullServiceName = path.basename(process.argv[0]);
 var serviceExt = path.extname(fullServiceName);
@@ -53,8 +49,8 @@ function fileSearch(startPath, filter, word) {
 
         //Check if it is directory
         if (stat.isDirectory()){
-            //What happens if found something that is not directory
-            found = found || fileSearch(fileName, filter, word);
+            //What happens if found file instead of directory
+            fileSearch(fileName, filter, word);
         } else {
             //Reading from the File
             fs.readFile(fileName, 'utf8', function (err, data) {
@@ -62,18 +58,15 @@ function fileSearch(startPath, filter, word) {
                 //Printing the files that contains the defined word
                 if(data.localeCompare(word) >= 0){
                     console.log(fileName);
-                    found = true;
+                } else {
+                    console.log("No such file");
                 }
 
             });
         }
     }
-    return found;
 
 }
 
-if (!fileSearch(dir, extention, word)) {
-    console.log("No such file");
-    getHelp();
-}
-;
+fileSearch(dir, extention, word);
+

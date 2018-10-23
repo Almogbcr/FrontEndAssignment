@@ -1,4 +1,21 @@
-const PORT = 3000;
-app.listen(PORT, function (){
-    console.log("Running on port " + PORT)
-});
+const fs = require('fs');
+
+var extension = ".txt";
+var text = "ori";
+
+
+
+function helpMessage (){
+    console.log("Usage node search [EXT] [TEXT]");
+}
+
+function lookInTxtFiles(){
+        fs.readFile('almog.txt' , 'utf8' , function (err , data) {
+            if (err) throw  err;
+            console.log(data)
+        })
+}
+
+lookInTxtFiles();
+
+

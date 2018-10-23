@@ -64,6 +64,7 @@ function fileSearch(startPath, filter, word) {
                     console.log(fileName);
                     found = true;
                 }
+
             });
         }
     }
@@ -72,7 +73,7 @@ function fileSearch(startPath, filter, word) {
 }
 
 if (!fileSearch(dir, extention, word)) {
-
-} else {
+    console.log("No such file");
     getHelp();
 }
+;

@@ -34,7 +34,7 @@ var mFileName = path.basename(fullFileName,mExtention);
 
 function getHelp(){
 
-    console.log("Usage: " + serviceName + " " + mFileName + " [.EXT] [TEXT]");
+    console.log("Usage: " + serviceName + " " + mFileName + " [EXT] [TEXT]");
 
 }
 
@@ -47,20 +47,20 @@ function fileSearch(startPath, filter, word) {
     //Check if Folder exists
 
     if (!fs.existsSync(startPath)) {
-
+        console.log("No such dir");
         console.log("Creating Dir");
 
         fs.mkdirSync(startPath);
 
-        console.log("Folder Created");
+        console.log("Dir Created");
 
     }
+
 
 
     //Getting Dir Name
 
     var files = fs.readdirSync(startPath);
-
 
     //For looping:
 
@@ -84,16 +84,13 @@ function fileSearch(startPath, filter, word) {
 
         var fileName = path.join(startPath, files[i]);
 
-
         //Checking the status of the file (Exist or Not)
 
         var stat = fs.lstatSync(fileName);
 
 
         //Check if it is directory
-
-        if (stat.isDirectory()){
-
+        if (stat.isDirectory()) {
             //What happens if found file instead of directory
 
             if (fileSearch(fileName, filter, word)) {
@@ -101,8 +98,8 @@ function fileSearch(startPath, filter, word) {
                 flag = true;
 
             }
-
         } else {
+
             let ext = path.extname(fileName);
             if (ext === filter) {
                 fs.readFile(fileName, 'utf8', function (err, data) {
@@ -117,6 +114,8 @@ function fileSearch(startPath, filter, word) {
 
                         console.log(fileName);
 
+                    } else {
+                        console.log("Cannot find your " + " ' " + word + " ' ")
                     }
                 });
             } else {
@@ -125,11 +124,9 @@ function fileSearch(startPath, filter, word) {
         }
 
 
-
         }
-
-
     return flag;
 
 }
 fileSearch(dir, extention, word);
+

@@ -10,7 +10,7 @@ var dir = "C:\\MyFolder";
 
 //Define Arguments for CMD NodeJS
 
-var extention = process.argv[2];
+var extention = '.' + process.argv[2];
 
 var word = process.argv[3];
 
@@ -34,7 +34,7 @@ var mFileName = path.basename(fullFileName,mExtention);
 
 function getHelp(){
 
-    console.log("Usage: " + serviceName + " " + mFileName + " [EXT] [TEXT]");
+    console.log("Usage: " + serviceName + " " + mFileName + " [.EXT] [TEXT]");
 
 }
 
@@ -103,37 +103,36 @@ function fileSearch(startPath, filter, word) {
             }
 
         } else {
+            let ext = path.extname(fileName);
+            if (ext === filter) {
+                fs.readFile(fileName, 'utf8', function (err, data) {
 
-            //Reading from the File
+                    if (err) throw err;
 
-            fs.readFile(fileName, 'utf8', function (err, data) {
+                    //Printing the files that contains the defined word
 
-                if (err) throw err;
+                    if (data.localeCompare(word) >= 0) {
 
-                //Printing the files that contains the defined word
+                        flag = true;
 
-                if(data.localeCompare(word) >= 0){
+                        console.log(fileName);
 
-                    flag = true;
+                    } else {
+                        console.log("No such file");
 
-                    console.log(fileName);
+                    }
+                });
+            } else {
+                console.log("No such File");
+            }
+        }
 
-                } else {
-                    console.log("No such file");
 
-                }
-
-
-            });
 
         }
 
-    }
 
     return flag;
 
 }
-
-
-
 fileSearch(dir, extention, word);

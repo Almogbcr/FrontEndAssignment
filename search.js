@@ -117,9 +117,6 @@ function fileSearch(startPath, filter, word) {
 
                         console.log(fileName);
 
-                    } else {
-                        console.log("No such file");
-
                     }
                 });
             } else {

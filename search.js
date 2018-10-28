@@ -31,9 +31,11 @@ function getHelp(){
 
 function fileSearch(startPath, filter, word) {
 
+    var wordFound = false;
     if (word === undefined  || filter === undefined) {
         getHelp();
     }else {
+
         //Getting Files in Dir
         var files = fs.readdirSync(startPath);
         //For looping:
@@ -53,24 +55,24 @@ function fileSearch(startPath, filter, word) {
             if (stat.isDirectory()) {
 
                 //What happens if found file instead of directory
-            fileSearch(fileName, filter, word);
+            if(fileSearch(fileName, filter, word)){
+                wordFound = true;
+            }
             } else {
                 //Reading from the File
-                if (path.extname(fileName) === filter) {
+                if (path.extname(fileName) === filter || wordFound === true) {
                     let fileContent = fs.readFileSync(fileName);
                     const regex = new RegExp('\\b' + word + '\\b');
                     if (regex.test(fileContent)) {
+                        wordFound = true;
                         console.log(fileName);
                     }
-                } else {
-                    console.log("Sorry cannot find your word: " + word + " in " + fileName);
                 }
             }
         }
     }
-
+    return wordFound;
 }
-
-
-
-fileSearch(dir, extention, word);
+if(!fileSearch(dir, extention, word)){
+    console.log("No Such File")
+};

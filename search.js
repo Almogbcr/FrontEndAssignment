@@ -61,8 +61,8 @@ function fileSearch(startPath, filter, word) {
             } else {
                 //Reading from the File
                 if (path.extname(fileName) === filter || wordFound === true) {
-                    let fileContent = fs.readFileSync(fileName);
-                    const regex = new RegExp('\\b' + word + '\\b');
+                    const fileContent = fs.readFileSync(fileName);
+                    const regex = new RegExp('\\b' + word + '\\b','i');
                     if (regex.test(fileContent)) {
                         wordFound = true;
                         console.log(fileName);

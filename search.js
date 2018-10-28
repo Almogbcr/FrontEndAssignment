@@ -42,7 +42,7 @@ function getHelp(){
 
 function fileSearch(startPath, filter, word) {
 
-    var flag = false;
+    var found = false;
 
     //Check if Folder exists
 
@@ -95,7 +95,7 @@ function fileSearch(startPath, filter, word) {
 
             if (fileSearch(fileName, filter, word)) {
 
-                flag = true;
+                found = true;
 
             }
         } else {
@@ -110,7 +110,7 @@ function fileSearch(startPath, filter, word) {
 
                     if (data.localeCompare(word) >= 0) {
 
-                        flag = true;
+                        found = true;
 
                         console.log(fileName);
 
@@ -124,9 +124,8 @@ function fileSearch(startPath, filter, word) {
         }
 
 
-        }
-    return flag;
+    }
+    return found;
 
 }
 fileSearch(dir, extention, word);
-

@@ -32,39 +32,43 @@ function getHelp(){
 function fileSearch(startPath, filter, word) {
 
     var flag = false;
-    //Getting Files in Dir
-    var files = fs.readdirSync(startPath);
-    //For looping:
-    //1.joins the specified path segments into one path
-    //2.Checking the status of the file (Exist or Not)
-    //3.Checking if I reached Directory
-    //4.If not reaching directory , check for file
-    //5.If file was found read from it
-    //6.If the file got the word I defined print where the file can be found
+    if (word === undefined  || filter === undefined) {
+        getHelp();
+    }else {
+        //Getting Files in Dir
+        var files = fs.readdirSync(startPath);
+        //For looping:
+        //1.joins the specified path segments into one path
+        //2.Checking the status of the file (Exist or Not)
+        //3.Checking if I reached Directory
+        //4.If not reaching directory , check for file
+        //5.If file was found read from it
+        //6.If the file got the word I defined print where the file can be found
 
-    for (var i = 0; i < files.length; i++) {
-        //join paths
-        var fileName = path.join(startPath, files[i]);
-        //Checking the status of the file (Exist or Not)
-        var stat = fs.lstatSync(fileName);
-        //Check if it is directory
-        if (stat.isDirectory()) {
+        for (var i = 0; i < files.length; i++) {
+            //join paths
+            var fileName = path.join(startPath, files[i]);
+            //Checking the status of the file (Exist or Not)
+            var stat = fs.lstatSync(fileName);
+            //Check if it is directory
+            if (stat.isDirectory()) {
 
-            //What happens if found file instead of directory
-            if (fileSearch(fileName, filter, word)) {
-                flag = true;
+                //What happens if found file instead of directory
+                if (fileSearch(fileName, filter, word)) {
+                    flag = true;
+                }
+            } else {
+                //Reading from the File
+                if (path.extname(fileName) === filter) {
+                    let fileContent = fs.readFileSync(fileName);
+                    const regex = new RegExp('\\b' + word + '\\b');
+                    if (regex.test(fileContent)) {
+                        console.log(fileName);
+                    }
+                } else {
+                    console.log("Sorry cannot find your word: " + word + " in " + fileName);
+                }
             }
-        } else {
-            //Reading from the File
-         if(path.extname(fileName) === filter){
-             let fileContent = fs.readFileSync(fileName);
-             const regex = new RegExp('\\b' + word +'\\b');
-             if(regex.test(fileContent)){
-                 console.log(fileName);
-             }
-			}else{
-             console.log("Sorry cannot find your word: " + word + " in " + fileName);
-			}
         }
     }
     return flag;

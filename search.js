@@ -31,7 +31,6 @@ function getHelp(){
 
 function fileSearch(startPath, filter, word) {
 
-    var flag = false;
     if (word === undefined  || filter === undefined) {
         getHelp();
     }else {
@@ -54,9 +53,7 @@ function fileSearch(startPath, filter, word) {
             if (stat.isDirectory()) {
 
                 //What happens if found file instead of directory
-                if (fileSearch(fileName, filter, word)) {
-                    flag = true;
-                }
+            fileSearch(fileName, filter, word);
             } else {
                 //Reading from the File
                 if (path.extname(fileName) === filter) {
@@ -71,7 +68,6 @@ function fileSearch(startPath, filter, word) {
             }
         }
     }
-    return flag;
 
 }
 
